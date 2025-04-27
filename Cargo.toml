@@ -1,0 +1,36 @@
+[package]
+name = "todo_list_rs"
+version = "0.1.0"
+authors = ["Hemalurgic <1728446126@qq.com>"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dioxus = { version = "0.6.0", features = ["fullstack"] }
+# reqwest = { version = "0.12.15", features = ["json"] }
+serde = { version = "1.0.219", features = ["derive"] }
+sqlx = { version = "0.6", optional = true, features = [
+    "postgres",
+    "runtime-tokio-native-tls",
+] }
+tokio = { version = "1.33", optional = true, features = ["full"] }
+
+[features]
+default = ["server"]
+web = ["dioxus/web"]
+desktop = ["dioxus/desktop"]
+mobile = ["dioxus/mobile"]
+server = ["dioxus/server", "dep:sqlx", "dep:tokio"]
+
+[profile]
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"
