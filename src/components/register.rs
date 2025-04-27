@@ -14,7 +14,7 @@ pub fn Register() -> Element {
             // --- Register Form ---
             div { class: "auth-form",
                 h2 { "Register" }
-                p { color: "red", "{reg_status}" } // Display registration status
+                p { "{reg_status}" } // Display registration status
                 input {
                     r#type: "text",
                     placeholder: "Username",

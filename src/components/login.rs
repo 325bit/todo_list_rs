@@ -19,7 +19,7 @@ pub fn Login() -> Element {
             // --- Login Form ---
             div { class: "auth-form",
                 h2 { "Login" }
-                p { color: "red", "{login_status}" } // Display login status
+                p { "{login_status}" } // Display login status
                 input {
                     r#type: "text",
                     placeholder: "Username",
