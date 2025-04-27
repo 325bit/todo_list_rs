@@ -2,167 +2,291 @@
 
 /* Basic reset or base styles */
 body {
-    font-family: sans-serif;
-    /* Use a common sans-serif font */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     line-height: 1.6;
-    /* Improve readability */
     margin: 0;
-    /* Remove default body margin */
-    padding: 20px;
-    /* Add some padding around the content */
+    padding: 0;
+    /* Remove body padding, add padding to the container */
     background-color: #1a1a1b;
-    /* Light background color */
     color: #333;
-    /* Default text color */
 }
 
 /* Styles for the main application container */
-/* Assuming you might wrap your Todo_save and Todo_show in a div in App */
-/* If you add class="container" to the outer div in App, uncomment below: */
-/*
-.container {
+/* Added class="app-container" to the outer div in App in main.rs */
+.app-container {
     max-width: 600px;
-    margin: 20px auto; // Center the container
-    background: #fff;
+    margin: 20px auto;
+    /* Center the container with margin on top/bottom */
     padding: 20px 30px;
+    background-color: rgba(255, 255, 255, 0.95);
+    /* Slightly less transparent white */
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-*/
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    /* Stronger shadow */
+    box-sizing: border-box;
+    /* Include padding in width */
+    color: #333;
+    /* Ensure text color is readable on white background */
 
-/* Heading styles */
+}
+
+
+/* --- NavBar/Title Area Styles (Adjusted for your structure) --- */
+
+/* Style for the div wrapping your navigation links */
+/* This is the div with id="title" in your NavBar component */
+#title {
+    display: flex;
+    /* Use flexbox to lay out the links side-by-side */
+    justify-content: center;
+    /* Center the links horizontally */
+    gap: 30px;
+    /* Add space between the "Register" and "Login" links */
+    padding-bottom: 20px;
+    /* Add space below the navigation links */
+    border-bottom: 1px solid #eee;
+    /* Add a separator line below the navigation */
+    margin-bottom: 20px;
+    /* Add space between the nav bar and the content rendered by Outlet */
+}
+
+/* Style for the Link components within the title div */
+/* Dioxus Link renders as an <a> tag */
+#title a {
+    text-decoration: none;
+    /* Remove the default underline from links */
+    color: #007bff;
+    /* Set a blue color for the links */
+    font-size: 1.2rem;
+    /* Make the link text slightly larger */
+    font-weight: bold;
+    /* Make the link text bold */
+    transition: color 0.2s ease;
+    /* Smooth color transition on hover */
+}
+
+#title a:hover {
+    color: #0056b3;
+    /* Darker blue color on hover */
+}
+
+/* Adjust the h1 style specifically when it is *inside* a Link within the title div */
+/* This makes the h1 behave like link text, overriding the generic h1 styles */
+#title a h1 {
+    margin: 0;
+    /* Remove default h1 margin */
+    padding: 0;
+    /* Remove default h1 padding */
+    border: none;
+    /* Remove the border-bottom defined in the generic h1 style */
+    color: inherit;
+    /* Inherit the color from the parent <a> tag */
+    font-size: inherit;
+    /* Inherit the font size from the parent <a> tag */
+    text-align: left;
+    /* Override the generic text-align: center */
+    font-weight: inherit;
+    /* Inherit font weight */
+}
+
+
+/* Generic h1 style (This style will only apply if you have an h1 tag *outside* of your #title div) */
 h1 {
     text-align: center;
-    color: #e7e7e7;
-    /* A darker blue for the main title */
+    color: #343a40;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #007bff;
+    /* This rule remains but won't apply to the h1s in your NavBar links */
+}
+
+/* --- Authentication Form Styles --- */
+
+/* Styles for the individual registration and login form containers */
+/* Add class="auth-form" to the divs in Register/Login components */
+.auth-form {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+
+    /* Add text-align: center to center inline/inline-block children like buttons */
+    text-align: center;
+}
+
+/* Style for the h2 inside auth forms */
+.auth-form h2 {
+    text-align: center;
+    /* Explicitly center the h2 text */
+    margin-top: 0;
+    /* Remove top margin */
     margin-bottom: 20px;
+    /* Add space below the title */
+    border-bottom: none;
+    /* Remove the border from this specific h2 */
+    padding-bottom: 0;
+    /* Remove padding from this specific h2 */
+    color: #333;
+    /* Make title color darker for better contrast */
 }
 
-h2 {
-    color: #ffffff;
-    /* A standard blue for section titles */
-    margin-top: 20px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #eee;
-    /* Subtle separator */
-    padding-bottom: 5px;
-}
 
-/* Input and Button styles */
-/* Container for the input and save button area */
-/* If you add class="input-area" to the div in Todo_save, uncomment below: */
-/*
-.input-area {
-    margin-bottom: 20px;
-    display: flex; // Use flexbox for alignment
-    gap: 10px; // Space between input and button
-}
-*/
-
-input[type="text"] {
-    width: calc(600px);
-    /* Adjust if needed based on button size and gap */
-    flex-grow: 1;
-    /* Allow input to take available space in flex container */
-    padding: 10px;
+/* Input field styles (unified for text and password) */
+/* These are block elements and will remain full-width and left-aligned */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    /* Include padding and border in the element's total width/height */
     font-size: 1rem;
+    display: block;
+    text-align: left;
+    /* Ensure input text is left-aligned */
 }
 
-/* Style for the Save button */
+/* Button styles (unified) */
+/* These are inline-block and will be centered by text-align: center on .auth-form */
 button {
-    padding: 10px 15px;
+    display: inline-block;
+    padding: 12px 20px;
     background-color: #007bff;
-    /* Blue background */
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
-    transition: background-color 0.2s ease;
-    /* Smooth hover effect */
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+    margin-top: 10px;
+    /* Add some space above the button */
 }
 
 button:hover {
     background-color: #0056b3;
-    /* Darker blue on hover */
 }
 
-/* Status message styles */
+button:active {
+    background-color: #004085;
+}
+
+/* Style for status messages within auth forms */
+/* Add class="auth-status" to the status p tags in Register/Login */
+.auth-status {
+    margin-top: -10px;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+    /* Color is often set inline in RSX for red errors */
+    text-align: center;
+    /* Center the status text as well */
+    color: #dc3545;
+    /* Explicitly set error color */
+}
+
+
+/* Horizontal rule separator */
+hr {
+    margin: 30px 0;
+    border: none;
+    border-top: 1px solid #eee;
+}
+
+
+/* --- Todo List Styles --- */
+/* These styles assume you will add a Todos route and component later */
+
+/* Container for the todo input and add button */
+/* Add class="todo-input-area" to the div in Todo_save */
+.todo-input-area {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Adjust input width specifically within the todo input area */
+.todo-input-area input[type="text"] {
+    flex-grow: 1;
+    width: auto;
+    margin-bottom: 0;
+}
+
+.todo-input-area button {
+    flex-shrink: 0;
+    margin-top: 0;
+}
+
+/* Status message styles (for save status) */
+/* Generic p style will apply unless a specific class is added */
 p {
     margin-top: 10px;
     font-size: 0.9em;
-    color: #cfcfcf;
-    /* Grey color for status */
+    color: #666;
 }
+
 
 /* List styles */
 ul {
     list-style: none;
-    /* Remove default bullet points */
     padding: 0;
-    /* Remove default padding */
     margin: 0;
-    /* Remove default margin */
 }
 
 li {
     background: #fff;
-    /* White background for list items */
-    padding: 10px 15px;
-    margin-bottom: 8px;
-    /* Space between list items */
+    padding: 12px 15px;
+    margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     display: flex;
-    /* Use flexbox to align content and button */
     justify-content: space-between;
-    /* Space out content and button */
     align-items: center;
-    /* Vertically align content */
     word-break: break-word;
-    /* Prevent long todo text from overflowing */
-}
-
-/* Style for the delete 'X' button inside list items */
-li button {
-    /* Override generic button styles */
-    background: none;
-    border: none;
-    color: red;
-    /* Red color for delete */
-    cursor: pointer;
-    font-size: 1.2em;
-    /* Slightly larger font size */
-    padding: 0 5px;
-    /* Adjust padding if needed */
-    margin-left: 10px;
-    /* Space from the todo text */
-    transition: color 0.2s ease;
-    /* Smooth hover effect */
-    flex-shrink: 0;
-    /* Prevent button from shrinking in flex layout */
-}
-
-li button:hover {
-    color: darkred;
-    /* Darker red on hover */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 /* Style for the todo content text within the list item */
 li span {
+    /* Assuming you wrap text in a span for styling */
     flex-grow: 1;
-    /* Allow the text span to take available space */
     margin-right: 10px;
-    /* Space between text and button */
+}
+
+/* Style for the delete 'X' button inside list items */
+li button {
+    background: none;
+    border: none;
+    color: #dc3545;
+    /* Bootstrap-like red color for delete */
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 0 5px;
+    margin-left: 10px;
+    transition: color 0.2s ease;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+li button:hover {
+    color: #c82333;
 }
 
 /* Optional: Style for "No todos yet!" message */
 p:has(+ ul:empty) {
-    /* Selects a p tag followed by an empty ul */
+    /* This needs CSS Level 4 selector support, might not work everywhere */
+    /* Alternative: use a specific class for the "No todos yet" p tag */
     font-style: italic;
-    color: #f1f0f0;
+    color: #888;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Alternative for "No todos yet!" styling (add class="no-todos-message" to the p tag) */
+.no-todos-message {
+    font-style: italic;
+    color: #888;
+    text-align: center;
+    margin-top: 20px;
 }
